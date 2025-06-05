@@ -1,0 +1,73 @@
+body {
+  background-color: #f6f9fb;
+  font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+.card {
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 8px 0 #eaeaea;
+  transition: box-shadow 0.2s;
+}
+.card:hover, .card:focus-within {
+  box-shadow: 0 4px 16px 0 #d6e0f5;
+}
+
+a {
+  text-decoration: none;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.btn {
+  transition: background 0.15s;
+}
+
+.alert {
+  padding: 0.5rem 1rem;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+}
+
+/* Плитки Dashboard */
+.card .fa-3x {
+  opacity: 0.8;
+}
+
+/* Адаптив для плиток */
+@media (max-width: 600px) {
+  .card .fa-3x {
+    font-size: 2rem !important;
+  }
+  .card .fs-2 {
+    font-size: 1.25rem !important;
+  }
+  .card .fs-5 {
+    font-size: 1rem !important;
+  }
+}
+
+/* Кнопки быстрого действия на дашборде */
+.card-body .btn {
+  min-width: 130px;
+  margin-bottom: 5px;
+}
+
+/* Мелкие стили для форм и фильтров */
+.form-select, .form-control {
+  border-radius: 0.5rem;
+}
+
+/* Уведомления на главной */
+.dashboard-notification {
+  font-size: 0.96em;
+  margin-bottom: 0.5em;
+}
