@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const tiles = [
   {
@@ -103,15 +104,70 @@ export default function Dashboard() {
   const [staff, setStaff] = useState([]);
 
   useEffect(() => {
-    setPatients(JSON.parse(localStorage.getItem("statrea_patients")) || []);
-    setAppointments(JSON.parse(localStorage.getItem("statrea_medical_commission")) || []);
-    setSelectionAppointments(JSON.parse(localStorage.getItem("statrea_selection_commission")) || []);
-    setSchedule(JSON.parse(localStorage.getItem("statrea_schedule")) || []);
-    setFinance(JSON.parse(localStorage.getItem("statrea_payments")) || []);
-    setNotifications(JSON.parse(localStorage.getItem("statrea_notifications")) || []);
-    setComplaints(JSON.parse(localStorage.getItem("statrea_complaints")) || []);
-    setDepartments(JSON.parse(localStorage.getItem("statrea_departments")) || []);
-    setStaff(JSON.parse(localStorage.getItem("statrea_staff")) || []);
+    try {
+      const p = localStorage.getItem("statrea_patients");
+      setPatients(p ? JSON.parse(p) : [
+        { id: 1, name: "Иванов Иван" },
+        { id: 2, name: "Петрова Анна" }
+      ]);
+    } catch { setPatients([]); }
+
+    try {
+      const a = localStorage.getItem("statrea_medical_commission");
+      setAppointments(a ? JSON.parse(a) : []);
+    } catch { setAppointments([]); }
+
+    try {
+      const sa = localStorage.getItem("statrea_selection_appointments") || localStorage.getItem("statrea_selection_commission");
+      setSelectionAppointments(sa ? JSON.parse(sa) : []);
+    } catch { setSelectionAppointments([]); }
+
+    try {
+      const sc = localStorage.getItem("statrea_appointments") || localStorage.getItem("statrea_schedule");
+      setSchedule(sc ? JSON.parse(sc) : [
+        { id: 1 }, { id: 2 }
+      ]);
+    } catch { setSchedule([]); }
+
+    try {
+      const fin = localStorage.getItem("statrea_payments");
+      setFinance(fin ? JSON.parse(fin) : [
+        { id: 1, type: "Поступление", amount: 5000 },
+        { id: 2, type: "Поступление", amount: 8000 },
+        { id: 3, type: "Возврат", amount: 3000 }
+      ]);
+    } catch { setFinance([]); }
+
+    try {
+      const notifs = localStorage.getItem("statrea_notifications");
+      setNotifications(notifs ? JSON.parse(notifs) : [
+        { id: 1, read: false },
+        { id: 2, read: true },
+        { id: 3, read: false }
+      ]);
+    } catch { setNotifications([]); }
+
+    try {
+      const comp = localStorage.getItem("statrea_complaints");
+      setComplaints(comp ? JSON.parse(comp) : [
+        { id: 1, status: "Новая" },
+        { id: 2, status: "Рассмотрена" }
+      ]);
+    } catch { setComplaints([]); }
+
+    try {
+      const dep = localStorage.getItem("statrea_departments");
+      setDepartments(dep ? JSON.parse(dep) : [
+        { id: 1 }, { id: 2 }, { id: 3 }
+      ]);
+    } catch { setDepartments([]); }
+
+    try {
+      const st = localStorage.getItem("statrea_staff");
+      setStaff(st ? JSON.parse(st) : [
+        { id: 1 }, { id: 2 }, { id: 3 }
+      ]);
+    } catch { setStaff([]); }
   }, []);
 
   const totalIncome = finance.filter(p=>p.type==="Поступление").reduce((s,p)=>s+Number(p.amount||0),0);
@@ -126,8 +182,8 @@ export default function Dashboard() {
     schedule: schedule.length,
     unreadNotifications,
     newComplaints,
-    totalIncome,
-    totalRefund,
+    totalIncome: totalIncome.toLocaleString("ru-RU"),
+    totalRefund: totalRefund.toLocaleString("ru-RU"),
     departments: departments.length,
     staff: staff.length,
     audit: ""
@@ -149,7 +205,7 @@ export default function Dashboard() {
       <div className="row g-4">
         {tiles.map(tile => (
           <div key={tile.key} className="col-12 col-md-6 col-lg-4">
-            <a href={tile.link} className="text-decoration-none">
+            <Link to={tile.link} className="text-decoration-none">
               <div className={`card text-white ${tile.bg} h-100 shadow-sm`}>
                 <div
                   className="card-body d-flex flex-column align-items-center justify-content-center"
@@ -163,7 +219,7 @@ export default function Dashboard() {
                   <div className="small text-white-50">{tile.description}</div>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>
