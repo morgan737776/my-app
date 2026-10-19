@@ -11,12 +11,14 @@ import MedicalCommission from "./components/MedicalCommission.jsx";
 import Schedule from "./components/Schedule.jsx";
 import SelectionCommission from "./components/SelectionCommission.jsx";
 import Staff from "./components/Staff.jsx";
+import Cartoon from "./multik/Cartoon.jsx";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="/multik" replace />} />
+        <Route path="/multik" element={<Cartoon />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/patients" element={<Patients />} />
         <Route path="/finance" element={<Finance />} />
